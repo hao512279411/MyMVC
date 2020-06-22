@@ -1,6 +1,9 @@
 package mvc;
 
 
+import org.apache.tomcat.util.buf.StringUtils;
+
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +15,18 @@ import java.lang.reflect.Method;
 public class LoginController extends HttpServlet {
     private Handler Handler;
 
-    public void init() throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         Handler = Handler.newInstance("test.properties");
         //设置配置文件路径
 
+        //获取 包路径
+        String packagePath = config.getInitParameter("path");
+        if (packagePath != null && !"".equals(packagePath)){
+            //根据包路径 加载包路径下的所有 类 并且把 含有RequestMapping 的存入对应map
 
+
+
+        }
     }
 
     @Override

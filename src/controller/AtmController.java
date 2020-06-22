@@ -1,16 +1,18 @@
 package controller;
 
-import domain.Atm;
+
 import mvc.Param;
+import mvc.RequestMapping;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-
+@RequestMapping("/adm")
 public class AtmController {
 
-
+    @RequestMapping("/login")
     public String login(@Param("name") String name){
         System.out.println("login运行了");
         System.out.println("获取到了name="+name);

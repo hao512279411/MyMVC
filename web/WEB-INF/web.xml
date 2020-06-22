@@ -7,13 +7,20 @@
         <servlet>
             <servlet-name>mvc</servlet-name>
             <servlet-class>mvc.LoginController</servlet-class>
+            <init-param>
+                <param-name>path</param-name>
+                <param-value>controller</param-value>
+            </init-param>
         </servlet>
 
         <servlet-mapping>
             <servlet-name>mvc</servlet-name>
             <url-pattern>*.do</url-pattern>
         </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>mvc</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 
 </web-app>
 
