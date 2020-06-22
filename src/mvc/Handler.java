@@ -73,6 +73,29 @@ public class Handler {
     }
 
     /**
+     * @说明:扫描包
+     * scanPackage 包的路径
+     */
+
+    void scanAnnotation(String[] scanPackages){
+
+        for (String scanPackage: scanPackages ) {
+
+
+
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+    /**
      * 通过key  获取value
      *
      * @param key

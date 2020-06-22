@@ -13,19 +13,17 @@ import java.lang.reflect.Method;
 
 
 public class LoginController extends HttpServlet {
-    private Handler Handler;
+    private Handler handler;
 
     public void init(ServletConfig config) throws ServletException {
-        Handler = Handler.newInstance("test.properties");
+        handler = Handler.newInstance("test.properties");
         //设置配置文件路径
 
         //获取 包路径
         String packagePath = config.getInitParameter("path");
         if (packagePath != null && !"".equals(packagePath)){
             //根据包路径 加载包路径下的所有 类 并且把 含有RequestMapping 的存入对应map
-
-
-
+            handler.scanAnnotation(packagePath.split(","));
         }
     }
 
@@ -42,12 +40,12 @@ public class LoginController extends HttpServlet {
             String methodName= request.getParameter("method");
 
             //2.通过 类名简写  找到真实的类 (并且对象的所有方法 存入method集合)
-            Object obj = Handler.getBean(className);
+            Object obj = handler.getBean(className);
 
             //3.找到要执行的方法
-            Method method = Handler.getMethod(obj,methodName);
+            Method method = handler.getMethod(obj,methodName);
             //4.找到方法 需要的参数
-            Object[] objects = Handler.methodParams(method,request,response);
+            Object[] objects = handler.methodParams(method,request,response);
             //5.执行方法
             String results = (String)method.invoke(obj,objects);
             System.out.println("获取到方法的返回值："+results);

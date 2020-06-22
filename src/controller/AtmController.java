@@ -18,6 +18,8 @@ public class AtmController {
         System.out.println("获取到了name="+name);
         return "test.jsp";
     }
+
+    @RequestMapping("/login02")
     public void login02(HttpServletRequest request, HttpServletResponse response){
         System.out.println("login02运行了");
         System.out.println(request.getParameter("id"));
