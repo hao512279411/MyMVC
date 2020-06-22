@@ -2,6 +2,8 @@ package mvc;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
@@ -84,15 +86,42 @@ public class Handler {
         }
         //遍历
         for (String scanPackage: scanPackages.split(",") ) {
-
-
             //URL  资源定位器   就是这个包的 本地路径地址
             URL url = Thread.currentThread().getContextClassLoader().getResource(scanPackage.replace(".", "\\"));
             if (url == null) {
                 continue;
             }
             //获取到包路径
-            String PackagePath = url.getPath();
+            String packagePath = url.getPath();
+            // 获取包路径下的calss文件
+            File packageFile = new File(packagePath);
+            // 过滤 判断是否是否是class文件
+            File[] files = packageFile.listFiles(new FileFilter() {
+                @Override
+                public boolean accept(File file) {
+                    if (file != null && file.getName().endsWith("class")) {
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            //遍历class文件  获取里面的所有注解
+            for(File file : files){
+                try {
+
+                    String className=file.getName().substring(0,file.getName().lastIndexOf("."));  //XXXX.class   截取过后变成  XXXX
+                    // 获取到对象
+                    Class clazz = Class.forName(scanPackage + "." + file.getName());
+                    // 获取类上的 注解  RequestMapping
+                    Annotation annotation = clazz.getAnnotation(RequestMapping.class);
+
+
+
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
 
 
         }
