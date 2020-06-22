@@ -21,10 +21,7 @@ public class LoginController extends HttpServlet {
 
         //获取 包路径
         String packagePath = config.getInitParameter("path");
-        if (packagePath != null && !"".equals(packagePath)){
-            //根据包路径 加载包路径下的所有 类 并且把 含有RequestMapping 的存入对应map
-            handler.scanAnnotation(packagePath.split(","));
-        }
+        handler.scanAnnotation(packagePath);
     }
 
     @Override

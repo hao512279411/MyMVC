@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -34,7 +35,7 @@ public class Handler {
 
 
     /**
-     * @说明:存放类的全限定类名
+     * @说明:存放类的全限定类名  key:类名简称  value：全类名
      */
     private Map<String, String> classNameMap;
     /**
@@ -77,12 +78,21 @@ public class Handler {
      * scanPackage 包的路径
      */
 
-    void scanAnnotation(String[] scanPackages){
+    void scanAnnotation(String scanPackages){
+        if (scanPackages == null || "".equals(scanPackages)){
+            return;
+        }
+        //遍历
+        for (String scanPackage: scanPackages.split(",") ) {
 
-        for (String scanPackage: scanPackages ) {
 
-
-
+            //URL  资源定位器   就是这个包的 本地路径地址
+            URL url = Thread.currentThread().getContextClassLoader().getResource(scanPackage.replace(".", "\\"));
+            if (url == null) {
+                continue;
+            }
+            //获取到包路径
+            String PackagePath = url.getPath();
 
 
         }
