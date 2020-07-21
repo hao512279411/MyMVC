@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@RequestMapping("adm")
+@RequestMapping("atm")
 public class AtmController {
 
     @RequestMapping("login")

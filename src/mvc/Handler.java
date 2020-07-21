@@ -71,7 +71,7 @@ public class Handler {
         while (en.hasMoreElements()) {
             String key = (String) en.nextElement();
             String value = pro.getProperty(key);
-            classNameMap.put(key, value);
+//            classNameMap.put(key, value);
         }
     }
 
@@ -111,11 +111,12 @@ public class Handler {
 
                     String className=file.getName().substring(0,file.getName().lastIndexOf("."));  //XXXX.class   截取过后变成  XXXX
                     // 获取到对象
-                    Class clazz = Class.forName(scanPackage + "." + file.getName());
+                    Class clazz = Class.forName(scanPackage + "." + className);
                     // 获取类上的 注解  RequestMapping
-                    Annotation annotation = clazz.getAnnotation(RequestMapping.class);
-
-
+                    RequestMapping requestMapping = (RequestMapping)clazz.getAnnotation(RequestMapping.class);
+                    String value = requestMapping.value();
+                    classNameMap.put(value,scanPackage + "." + className);
+                    System.out.println(value+"=========================="+scanPackage + "." + className);
 
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
